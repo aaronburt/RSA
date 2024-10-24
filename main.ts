@@ -123,19 +123,21 @@ class RSA {
     return plaintext.join('')
   }
 
+  build(){
+    return this.calcProductOfPrimes()
+    .calcPhi()
+    .calcMod()
+    .calcQuotient()
+    .calcRemainder()
+    .calcPrivateKey()
+    .calcPublicKey();
+  }
+
 }
 
 const rsa = new RSA(457, 349);
 
-rsa.calcProductOfPrimes()
-   .calcPhi()
-   .calcMod()
-   .calcQuotient()
-   .calcRemainder()
-   .calcPrivateKey()
-   .calcPublicKey();
-
-console.log(rsa)
+rsa.build();
 
 const encrypted = rsa.encryptString("hey how are you today?")
 
