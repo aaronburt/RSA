@@ -1,4 +1,4 @@
-class RSA {
+export default class RSA {
   // Prime vales
   public p1: number = 0;
   public p2: number = 0;
@@ -67,12 +67,11 @@ class RSA {
   
       if (this.isValidPrivateKey(potentialPrivateKey)) {
         this.privateKey = potentialPrivateKey;
-        console.log(`Private Key Found: ${potentialPrivateKey}`);
         break;
       }
 
       if(potentialPrivateKey == (this.phi - 1)){
-        console.log("Couldn't create private key")
+        console.warn("Couldn't create private key")
       }
     }
     return this;
@@ -132,17 +131,4 @@ class RSA {
     .calcPrivateKey()
     .calcPublicKey();
   }
-
 }
-
-const rsa = new RSA(457, 349);
-
-rsa.build();
-
-const encrypted = rsa.encryptString("hey how are you today?")
-
-console.log(encrypted)
-
-const decrypted = rsa.decryptString(encrypted)
-
-console.log(decrypted)
