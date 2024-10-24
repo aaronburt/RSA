@@ -91,23 +91,36 @@ class RSA {
   };
 
   // Needed to use big int, otherwise the ** would result in infinity and then gg wp
-  encrypt(message: number) {
+  encrypt(message: number | bigint) {
     return (BigInt(message) ** BigInt(this.exponent)) % BigInt(this.productOfPrimes);
   }
 
-  decrypt(ciphertext: bigint) {
+  decrypt(ciphertext: number | bigint) {
     return (BigInt(ciphertext) ** BigInt(this.privateKey)) % BigInt(this.productOfPrimes);
   }
 
-  encryptString(plaintext: string){
 
-    const encrypted = new Array();
-
-    for(let i = 0; i < plaintext.length; i++){
-      encrypted.push(plaintext.charCodeAt(i));
+  encryptString(message: string){
+    const encryptedArray: bigint[] = [];
+    for(let letter = 0; letter < message.length; letter++){
+      const plainChar: number = message.charCodeAt(letter);
+      const encryptChar = BigInt(plainChar);
+      encryptedArray.push(BigInt(this.encrypt(encryptChar)));
     }
 
-    console.log(encrypted.toString().replaceAll(',', ''))
+    return encryptedArray;
+  }
+  
+
+  decryptString(input: bigint[]){
+    const plaintext = [];
+    for(let enc = 0; enc < input.length; enc++){
+      const current: bigint = input[enc];
+      const currentDecrypted = Number(this.decrypt(current));
+      plaintext.push(String.fromCharCode(currentDecrypted));
+    }
+
+    return plaintext.join('')
   }
 
 }
@@ -122,11 +135,12 @@ rsa.calcProductOfPrimes()
    .calcPrivateKey()
    .calcPublicKey();
 
-const message = 4;
-const encryptedMessage = rsa.encrypt(message);
-console.log(`Encrypted Message: ${encryptedMessage}`);
+console.log(rsa)
 
-const decryptedMessage = rsa.decrypt(BigInt(encryptedMessage));
-console.log(`Decrypted Message: ${decryptedMessage}`);
+const encrypted = rsa.encryptString("hey how are you today?")
 
-rsa.encryptString("aaronburt")
+console.log(encrypted)
+
+const decrypted = rsa.decryptString(encrypted)
+
+console.log(decrypted)
