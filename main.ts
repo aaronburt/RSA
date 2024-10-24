@@ -98,6 +98,18 @@ class RSA {
   decrypt(ciphertext: bigint) {
     return (BigInt(ciphertext) ** BigInt(this.privateKey)) % BigInt(this.productOfPrimes);
   }
+
+  encryptString(plaintext: string){
+
+    const encrypted = new Array();
+
+    for(let i = 0; i < plaintext.length; i++){
+      encrypted.push(plaintext.charCodeAt(i));
+    }
+
+    console.log(encrypted.toString().replaceAll(',', ''))
+  }
+
 }
 
 const rsa = new RSA(457, 349);
@@ -110,11 +122,11 @@ rsa.calcProductOfPrimes()
    .calcPrivateKey()
    .calcPublicKey();
 
-console.log(rsa)
-
 const message = 4;
 const encryptedMessage = rsa.encrypt(message);
 console.log(`Encrypted Message: ${encryptedMessage}`);
 
 const decryptedMessage = rsa.decrypt(BigInt(encryptedMessage));
 console.log(`Decrypted Message: ${decryptedMessage}`);
+
+rsa.encryptString("aaronburt")
