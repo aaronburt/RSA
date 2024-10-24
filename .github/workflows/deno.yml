@@ -35,8 +35,8 @@ jobs:
       # - name: Verify formatting
       #   run: deno fmt --check
 
-      - name: Deno Future 
-        run: export DENO_FUTURE=1
+      - name: Deno Upgrade 
+        run: deno upgrade
 
       - name: Run linter
         run: deno lint
