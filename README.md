@@ -21,11 +21,8 @@ This is a simple implementation of the RSA encryption algorithm in TypeScript. T
 ### Example
 
 ```typescript
-// Create an instance of the RSA class with two prime numbers
-const rsa = new RSA(457, 349);
-
-// Build the public and private keys
-rsa.build();
+// Create an instance of the RSA class with two prime numbers, the exponent is autoDefined as 5 and autoBuild is true by default
+const rsa = new RSA(457, 349, 5, true);
 
 // Encrypt a message
 const encrypted = rsa.encryptString("hey how are you today?");

@@ -21,10 +21,13 @@ export default class RSA {
   public privateKey: number = 0;
   public publicKey: Record<string, number> = {}
 
-  constructor(p1: number, p2: number, exponent: number = 5) {
+  constructor(p1: number, p2: number, exponent: number = 5, autoBuild: boolean = true) {
     this.p1 = p1; 
     this.p2 = p2;
     this.exponent = exponent;
+    if(autoBuild){
+      this.build();
+    }    
   }
 
   calcPublicKey(){
