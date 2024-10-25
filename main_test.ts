@@ -2,7 +2,7 @@ import { assertEquals } from "@std/assert";
 import RSA from "./main.ts";
 
 Deno.test(function compareString() {
-    const rsa = new RSA(457, 349);
+    const rsa = new RSA(457, 349, 5, false);
     rsa.build();
     
     const plaintext: string = "hey how are you today? This is a basic test of email contents";
@@ -13,7 +13,7 @@ Deno.test(function compareString() {
 });
 
 Deno.test(function compareEmptyString() {
-    const rsa = new RSA(457, 349);
+    const rsa = new RSA(457, 349, 5, false);
     rsa.build();
     
     const plaintext: string = "";
@@ -24,7 +24,7 @@ Deno.test(function compareEmptyString() {
 });
 
 Deno.test(function compareSpecialCharacters() {
-    const rsa = new RSA(457, 349);
+    const rsa = new RSA(457, 349, 5, false);
     rsa.build();
     
     const plaintext: string = "!@#$%^&*()_+[]{}|;':\",.<>?";
@@ -35,7 +35,7 @@ Deno.test(function compareSpecialCharacters() {
 });
 
 Deno.test(function compareLongString() {
-    const rsa = new RSA(457, 349);
+    const rsa = new RSA(457, 349, 5, false);
     rsa.build();
     
     const plaintext: string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
@@ -46,7 +46,7 @@ Deno.test(function compareLongString() {
 });
 
 Deno.test(function compareNumericString() {
-    const rsa = new RSA(457, 349);
+    const rsa = new RSA(457, 349, 5, false);
     rsa.build();
     
     const plaintext: string = "1234567890";
@@ -57,7 +57,7 @@ Deno.test(function compareNumericString() {
 });
 
 Deno.test(function compareStringWithNewlines() {
-    const rsa = new RSA(457, 349);
+    const rsa = new RSA(457, 349, 5, false);
     rsa.build();
     
     const plaintext: string = "Line 1\nLine 2\nLine 3";
@@ -68,7 +68,7 @@ Deno.test(function compareStringWithNewlines() {
 });
 
 Deno.test(function compareStringWithTabs() {
-    const rsa = new RSA(457, 349);
+    const rsa = new RSA(457, 349, 5, false);
     rsa.build();
     
     const plaintext: string = "Column1\tColumn2\tColumn3";
@@ -79,7 +79,7 @@ Deno.test(function compareStringWithTabs() {
 });
 
 Deno.test(function compareStringWithUnicode() {
-    const rsa = new RSA(457, 349);
+    const rsa = new RSA(457, 349, 5, false);
     rsa.build();
     
     const plaintext: string = "こんにちは世界";
@@ -90,7 +90,7 @@ Deno.test(function compareStringWithUnicode() {
 });
 
 Deno.test(function compareStringWithMixedContent() {
-    const rsa = new RSA(457, 349);
+    const rsa = new RSA(457, 349, 5, false);
     rsa.build();
     
     const plaintext: string = "Text with numbers 123 and symbols @#$%!";
@@ -99,4 +99,16 @@ Deno.test(function compareStringWithMixedContent() {
 
     assertEquals(plaintext, decrypted);
 });
+
+Deno.test(function autoBuildConstructorDefault() {
+    const rsa = new RSA(457, 349);
+    
+    const plaintext: string = "Text with numbers 123 and symbols @#$%!";
+    const encrypted: bigint[] = rsa.encryptString(plaintext);    
+    const decrypted: string = rsa.decryptString(encrypted)
+
+    assertEquals(plaintext, decrypted);
+});
+
+
 
