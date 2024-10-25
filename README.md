@@ -12,16 +12,14 @@ This is a simple implementation of the RSA encryption algorithm in TypeScript. T
 
 1. **Instantiate the RSA Class**: Create an instance of the RSA class by providing two prime numbers.
 
-2. **Build the Keys**: Call the `build()` method to calculate the product of the primes, Euler's Totient, and generate the public and private keys.
+2. **Encrypt a Message**: Use the `encryptString()` method to encrypt a string message.
 
-3. **Encrypt a Message**: Use the `encryptString()` method to encrypt a string message.
-
-4. **Decrypt a Message**: Use the `decryptString()` method to decrypt the previously encrypted message.
+3. **Decrypt a Message**: Use the `decryptString()` method to decrypt the previously encrypted message.
 
 ### Example
 
 ```typescript
-// Create an instance of the RSA class with two prime numbers, the exponent is autoDefined as 5 and autoBuild is true by default
+// Create an instance of the RSA class with two prime numbers, the exponent defaults to 5 and autoBuild defaults to true.
 const rsa = new RSA(457, 349, 5, true);
 
 // Encrypt a message
